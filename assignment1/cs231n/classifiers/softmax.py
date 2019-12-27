@@ -33,7 +33,13 @@ def softmax_loss_naive(W, X, y, reg):
     #############################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    pred = np.matmul(X,W)
+    for i in range(X.shape[0]): 
+        denom = 0
+        for c in range(W.shape[1]):
+            denom += np.e**pred[i,c]
+        loss += np.e**pred[i,y[i]]
+    loss /= X.shape[0]
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
