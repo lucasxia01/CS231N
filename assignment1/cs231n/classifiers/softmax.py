@@ -35,14 +35,17 @@ def softmax_loss_naive(W, X, y, reg):
 
     pred = np.matmul(X,W)
     for i in range(X.shape[0]): 
-        denom = 0
-        for c in range(W.shape[1]):
-            denom += np.e**pred[i,c]
-        loss += np.e**pred[i,y[i]]
+        z = np.exp(pred[i])
+        denom = np.sum(z)
+        loss += -np.log(np.e**pred[i,y[i]]/denom)
+        
     loss /= X.shape[0]
+    dW /= X.shape[0]
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-
+    
+    loss += reg * np.sum(W*W)
+    dW += reg * 2 * W
     return loss, dW
 
 
@@ -64,7 +67,7 @@ def softmax_loss_vectorized(W, X, y, reg):
     #############################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
